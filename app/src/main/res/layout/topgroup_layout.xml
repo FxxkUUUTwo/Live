@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/top_group_height"
+    android:orientation="horizontal"
+    android:padding="3dp"
+    android:background="@color/top_background">
+
+    <ImageView
+        android:id="@+id/top_back"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/top_img_size"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:src="@mipmap/head_back"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/top_title"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/top_text_size"
+        android:layout_weight="5"
+        android:text="主页"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/top_search"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/top_img_size"
+        android:layout_weight="1"
+        android:src="@mipmap/search"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="invisible"/>
+</LinearLayout>

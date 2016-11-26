@@ -6,16 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.other.project.live.R;
 import com.other.project.live.base.BaseFragment;
 
 /**
  * Created by wanghaixin on 16/11/26.
  */
 public class ClassifyFragment extends BaseFragment {
+    public static final String TAG = ClassifyFragment.class.getSimpleName();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        view = inflater.inflate(R.layout.fragment_classify_layout, container, false);
+        return view;
     }
 }
