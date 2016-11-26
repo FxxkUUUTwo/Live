@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 /*
 *
-* Live*/
+* My Live*/
 public class MainActivity extends AppCompatActivity {
 
     @Override
