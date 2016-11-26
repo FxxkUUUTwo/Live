@@ -30,6 +30,7 @@
             android:id="@+id/bottom_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_pilot_height"
+            android:layout_margin="4dp"
             android:layout_marginTop="3dp"
             android:orientation="horizontal">
 
@@ -39,10 +40,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:drawableTop="@mipmap/main"
+                android:checked="true"
+                android:drawableTop="@drawable/navigation_home_selector"
                 android:gravity="center"
-
-                android:text="首页" />
+                android:text="首页"
+                android:textColor="@drawable/navigation_text_selector"
+                android:textSize="@dimen/navigation_text_size" />
 
             <RadioButton
                 android:id="@+id/classify_btn"
@@ -50,10 +53,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:drawableTop="@mipmap/main"
-
+                android:drawableTop="@drawable/navigation_gamelist_selector"
                 android:gravity="center"
-                android:text="分类" />
+                android:text="分类"
+                android:textColor="@drawable/navigation_text_selector"
+                android:textSize="@dimen/navigation_text_size" />
 
             <RadioButton
                 android:id="@+id/anchor_btn"
@@ -61,10 +65,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:drawableTop="@mipmap/main"
+                android:drawableTop="@drawable/navigation_anchorlist_selector"
                 android:gravity="center"
+                android:text="主播头条"
+                android:textColor="@drawable/navigation_text_selector"
 
-                android:text="主播头条" />
+                android:textSize="@dimen/navigation_text_size" />
 
             <RadioButton
                 android:id="@+id/myself_btn"
@@ -72,9 +78,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@null"
-                android:drawableTop="@mipmap/main"
+                android:drawableTop="@drawable/navigation_my_selector"
                 android:gravity="center"
-                android:text="我" />
+                android:text="我"
+                android:textColor="@drawable/navigation_text_selector"
+
+                android:textSize="@dimen/navigation_text_size" />
         </RadioGroup>
 
     </LinearLayout>
