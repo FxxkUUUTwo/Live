@@ -17,7 +17,7 @@
     <!---->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/main_pilot_linearlayout_height"
+        android:layout_height="@dimen/main_pilot_height"
         android:layout_gravity="bottom"
         android:orientation="vertical">
 
@@ -55,7 +55,7 @@
                 android:button="@null"
                 android:drawableTop="@drawable/navigation_gamelist_selector"
                 android:gravity="center"
-                android:text="分类"
+                android:text="栏目分类"
                 android:textColor="@drawable/navigation_text_selector"
                 android:textSize="@dimen/navigation_text_size" />
 
@@ -80,9 +80,8 @@
                 android:button="@null"
                 android:drawableTop="@drawable/navigation_my_selector"
                 android:gravity="center"
-                android:text="我"
+                android:text="我的"
                 android:textColor="@drawable/navigation_text_selector"
-
                 android:textSize="@dimen/navigation_text_size" />
         </RadioGroup>
 
