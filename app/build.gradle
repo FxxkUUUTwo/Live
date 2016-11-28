@@ -10,6 +10,7 @@ android {
         }
     }
     defaultConfig {
+        manifestPlaceholders.put("key", "diArENtoZT5IxVuE8QZFquR4WVvdxj2D");
         applicationId "com.other.project.live"
         minSdkVersion 15
         targetSdkVersion 25

@@ -180,22 +180,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
             handler.sendEmptyMessage(0x100);
 
-//            Toast.makeText(MainActivity.this, bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "", Toast.LENGTH_SHORT).show();
-//            //纬度
-//            //tv_latitude.setText(bdLocation.getLatitude() + "");
-//            //经度
-//            //tv_longitude.setText(bdLocation.getLongitude() + "");
-//
-//
-//            // 获取详细地址信息
-//           // tv_address.setText(bdLocation.getAddrStr());
-//            Log.e(TAG, "onReceiveLocation=======: " + bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "");
-//
-//            // 通知停止定位
-//            handler.sendEmptyMessage(0x100);
-            // Log.e(TAG, "onReceiveLocation=======: " + bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "");
-
-            //Receive Location
         }
 
     }
