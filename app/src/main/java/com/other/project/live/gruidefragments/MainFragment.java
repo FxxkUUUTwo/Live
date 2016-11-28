@@ -22,7 +22,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main_layout, container, false);
-        mTopGroup = (TopGroup) view.findViewById(R.id.main_top_group);
+       // mTopGroup = (TopGroup) view.findViewById(R.id.main_top_group);
 
 
         return view;
@@ -31,7 +31,6 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mTopGroup.setTitle("是我");
 
     }
 }

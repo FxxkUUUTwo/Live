@@ -4,7 +4,7 @@
     android:layout_height="@dimen/top_group_height"
     android:orientation="horizontal"
     android:padding="3dp"
-    android:background="@color/top_background">
+    android:background="@color/top_background_white">
 
     <ImageView
         android:id="@+id/top_back"
