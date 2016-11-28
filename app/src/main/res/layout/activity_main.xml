@@ -6,6 +6,14 @@
 
     tools:context="com.other.project.live.MainActivity">
 
+    <TextView
+        android:id="@+id/ceshi"
+        android:textSize="30sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:text="asd"
+        android:gravity="center"/>
     <FrameLayout
         android:id="@+id/container_framelayout"
         android:layout_width="match_parent"

@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
         }
     };
+    private TextView viewById;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private void initView() {
 
 
+        viewById = (TextView) findViewById(R.id.ceshi);
         mRadioGroup = (RadioGroup) findViewById(R.id.bottom_radiogroup);
 
         mRadioGroup.setOnCheckedChangeListener(this);
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         transaction.commit();
 
 
-        Log.e(TAG, "initView--------: "+"asdasdasdasd");
+        Log.e(TAG, "initView--------: " + "asdasdasdasd");
         client = new LocationClient(getApplicationContext());
 
         //  配置定位SDK各配置参数
@@ -75,9 +77,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
         // 初始化位置监听器
         locationListener = new MyLocationListener();
-
-
-
 
 
     }
@@ -151,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         // 定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死   可选，默认true
         option.setIgnoreKillProcess(false);
         // 设置是否进行异常捕捉 true:不捕捉异常；false:捕捉异常，可选，默认false
+        //option.SetIgnoreCacheException(false);
         option.SetIgnoreCacheException(false);
         // 设置是否允许模拟GPS true:允许； false:不允许，默认为false
         option.setEnableSimulateGps(false);
@@ -167,48 +167,63 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
 
-            Toast.makeText(MainActivity.this, bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "", Toast.LENGTH_SHORT).show();
-            //纬度
-            //tv_latitude.setText(bdLocation.getLatitude() + "");
-            //经度
-            //tv_longitude.setText(bdLocation.getLongitude() + "");
+            if (bdLocation == null) {
+                client.start();
+                Log.e(TAG, "onReceiveLocation=======: " + bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "" + ":" + bdLocation.getLocType());
+                viewById.setText(bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "");
+                handler.sendEmptyMessage(0x100);
 
 
-            // 获取详细地址信息
-           // tv_address.setText(bdLocation.getAddrStr());
-            Log.e(TAG, "onReceiveLocation=======: " + bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "");
+            }
+            Log.e(TAG, "onReceiveLocation=======: " + bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "" + bdLocation.getAddrStr() + ":" + bdLocation.getLocType());
+            viewById.setText(bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "");
 
-            // 通知停止定位
             handler.sendEmptyMessage(0x100);
 
+//            Toast.makeText(MainActivity.this, bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "", Toast.LENGTH_SHORT).show();
+//            //纬度
+//            //tv_latitude.setText(bdLocation.getLatitude() + "");
+//            //经度
+//            //tv_longitude.setText(bdLocation.getLongitude() + "");
+//
+//
+//            // 获取详细地址信息
+//           // tv_address.setText(bdLocation.getAddrStr());
+//            Log.e(TAG, "onReceiveLocation=======: " + bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "");
+//
+//            // 通知停止定位
+//            handler.sendEmptyMessage(0x100);
+            // Log.e(TAG, "onReceiveLocation=======: " + bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "");
+
+            //Receive Location
         }
+
     }
-
-    public void swapFragment(String Tag, Class<? extends Fragment> cls) {
-
-
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.hide(showFragment);
+        public void swapFragment(String Tag, Class<? extends Fragment> cls) {
 
 
-        try {
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+            transaction.hide(showFragment);
 
 
-            showFragment = mFragmentManager.findFragmentByTag(Tag);
+            try {
 
-            if (showFragment != null) {
 
-                transaction.show(showFragment);
-            } else {
-                showFragment = cls.getConstructor().newInstance();
-                transaction.add(R.id.container_framelayout, showFragment, Tag);
+                showFragment = mFragmentManager.findFragmentByTag(Tag);
+
+                if (showFragment != null) {
+
+                    transaction.show(showFragment);
+                } else {
+                    showFragment = cls.getConstructor().newInstance();
+                    transaction.add(R.id.container_framelayout, showFragment, Tag);
+                }
+            } catch (Exception e) {
+
             }
-        } catch (Exception e) {
-
-        }
 
 
 //        showFragment.setArguments(new Bundle());
-        transaction.commit();
+            transaction.commit();
+        }
     }
-}
