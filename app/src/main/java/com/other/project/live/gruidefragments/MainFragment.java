@@ -30,6 +30,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     private TextView mPosition;
 
     private MainActivity a;
+    private TextView mProvision;
 
     @Override
     public void onAttach(Context context) {
@@ -67,6 +68,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_main_layout, container, false);
 
         mPosition = (TextView) view.findViewById(R.id.top_position);
+        mProvision = ((TextView) view.findViewById(R.id.top_provision));
+
 
         return view;
     }
@@ -76,13 +79,24 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
 
         mPosition.setOnClickListener(this);
+        mProvision.setOnClickListener(this);
+
 
     }
 
     @Override
     public void onClick(View view) {
 
-        a.toggle();
+        switch (view.getId()) {
+            case R.id.top_position:
+                a.toggle();
+
+                break;
+
+            case R.id.top_provision:
+
+                break;
+        }
 
 
     }
