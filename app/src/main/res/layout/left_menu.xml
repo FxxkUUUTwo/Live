@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.other.project.live.widget.TopGroup
+        android:id="@+id/position_topgroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_group_height">
+
+    </com.other.project.live.widget.TopGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"></View>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/left_menu_notouch_tv_height"
+        android:background="@color/no_touch"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="GPS定位城市" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"></View>
+
+    <TextView
+        android:id="@+id/curr_city"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/left_menu_touch_layout_height"
+        android:background="@color/chun_white"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="无法定位当前城市"
+        android:textSize="16sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"></View>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/left_menu_notouch_tv_height"
+        android:background="@color/no_touch"
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:text="已开通服务城市" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"></View>
+
+    <LinearLayout
+        android:id="@+id/bejing"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/left_menu_touch_layout_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="40dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="北京"
+            android:textSize="16sp" />
+
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@mipmap/duigou" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"></View>
+
+    <LinearLayout
+        android:id="@+id/shenzhen"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/left_menu_touch_layout_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="40dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="深圳"
+            android:textSize="16sp" />
+
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@mipmap/duigou"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"></View>
+
+    <LinearLayout
+        android:id="@+id/shanghai"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/left_menu_touch_layout_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="40dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="上海"
+            android:textSize="16sp" />
+
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@mipmap/duigou"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"></View>
+
+    <LinearLayout
+        android:id="@+id/guangzhou"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/left_menu_touch_layout_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="40dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="广州"
+            android:textSize="16sp" />
+
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@mipmap/duigou"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"></View>
+</LinearLayout>

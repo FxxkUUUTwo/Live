@@ -33,12 +33,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MyLocationActivity"></activity>
+        <activity android:name=".activities.MyLocationActivity" />
 
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
+        <activity android:name=".activities.PositionActivity"></activity>
     </application>
 
 </manifest>

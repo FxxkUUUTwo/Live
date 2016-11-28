@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -15,15 +17,19 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.other.project.live.custom.MyEventBus;
 import com.other.project.live.gruidefragments.AnchorHeadLineFragment;
 import com.other.project.live.gruidefragments.ClassifyFragment;
 import com.other.project.live.gruidefragments.MainFragment;
 import com.other.project.live.gruidefragments.MyselfFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 /*
 *
 * My Live*/
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, SlidingMenu.OnOpenedListener, SlidingMenu.OnClosedListener, View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private Fragment showFragment;
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
     };
     private TextView viewById;
+    private SlidingMenu mSlidingMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +60,29 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
 
         initView();
+
+        initSlidingMenu();
+
+
+    }
+
+    private void initSlidingMenu() {
+        mSlidingMenu = new SlidingMenu(this);
+        mSlidingMenu.setMode(SlidingMenu.LEFT);//设置模式
+        mSlidingMenu.setBehindOffsetRes(R.dimen.menu_offset);//配置菜单滑出后的剩余宽度
+        mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);//配置触摸模式
+        mSlidingMenu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);//将slidingMenu贴在Activity上
+        mSlidingMenu.setMenu(R.layout.left_menu);//设置侧滑布局菜单
+
+
+        mSlidingMenu.setOnOpenedListener(this);
+        mSlidingMenu.setOnClosedListener(this);
+        // mSlidingMenu.setSecondaryMenu(R.layout.right_menu);//当模式为左右都存在时，想要设置右侧的属性，需要使用代有Secondary的属性
     }
 
     private void initView() {
 
 
-        viewById = (TextView) findViewById(R.id.ceshi);
         mRadioGroup = (RadioGroup) findViewById(R.id.bottom_radiogroup);
 
         mRadioGroup.setOnCheckedChangeListener(this);
@@ -160,6 +184,55 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
 
+    @Override
+    public void onOpened() {
+
+
+        Log.e(TAG, "onOpened: 打开");
+        View view = LayoutInflater.from(this).inflate(R.layout.left_menu, null);
+
+        View beijing = view.findViewById(R.id.bejing);
+        View shanghai = view.findViewById(R.id.shanghai);
+        View shenzhen = view.findViewById(R.id.shenzhen);
+        View guangzhou = view.findViewById(R.id.guangzhou);
+        beijing.setOnClickListener(this);
+        shanghai.setOnClickListener(this);
+        shenzhen.setOnClickListener(this);
+        guangzhou.setOnClickListener(this);
+
+
+    }
+
+    @Override
+    public void onClosed() {
+        Log.e(TAG, "onOpened: 关闭");
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.bejing:
+
+                EventBus.getDefault().post(new MyEventBus("北京"));
+                break;
+            case R.id.shanghai:
+                EventBus.getDefault().post(new MyEventBus("上海"));
+
+                break;
+            case R.id.shenzhen:
+                EventBus.getDefault().post(new MyEventBus("深圳"));
+
+                break;
+            case R.id.guangzhou:
+                EventBus.getDefault().post(new MyEventBus("广州"));
+
+                break;
+        }
+    }
+
+
     //  定位监听接口实现类
     class MyLocationListener implements BDLocationListener {
 
@@ -176,38 +249,38 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
             }
             Log.e(TAG, "onReceiveLocation=======: " + bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "" + bdLocation.getAddrStr() + ":" + bdLocation.getLocType());
-            viewById.setText(bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "");
 
             handler.sendEmptyMessage(0x100);
 
         }
 
     }
-        public void swapFragment(String Tag, Class<? extends Fragment> cls) {
+
+    public void swapFragment(String Tag, Class<? extends Fragment> cls) {
 
 
-            FragmentTransaction transaction = mFragmentManager.beginTransaction();
-            transaction.hide(showFragment);
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.hide(showFragment);
 
 
-            try {
+        try {
 
 
-                showFragment = mFragmentManager.findFragmentByTag(Tag);
+            showFragment = mFragmentManager.findFragmentByTag(Tag);
 
-                if (showFragment != null) {
+            if (showFragment != null) {
 
-                    transaction.show(showFragment);
-                } else {
-                    showFragment = cls.getConstructor().newInstance();
-                    transaction.add(R.id.container_framelayout, showFragment, Tag);
-                }
-            } catch (Exception e) {
-
+                transaction.show(showFragment);
+            } else {
+                showFragment = cls.getConstructor().newInstance();
+                transaction.add(R.id.container_framelayout, showFragment, Tag);
             }
+        } catch (Exception e) {
+
+        }
 
 
 //        showFragment.setArguments(new Bundle());
-            transaction.commit();
-        }
+        transaction.commit();
     }
+}

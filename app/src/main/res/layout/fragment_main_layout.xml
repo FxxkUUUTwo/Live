@@ -7,39 +7,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_group_height"
+        android:background="@color/top_background_white"
         android:orientation="horizontal"
-        android:padding="4dp"
-        android:background="@color/top_background_white">
+        android:padding="4dp">
 
         <TextView
-            android:id="@+id/top_back"
+            android:id="@+id/top_position"
             android:layout_width="0dp"
             android:layout_height="@dimen/top_img_size"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:drawableRight="@mipmap/head_back"
             android:text="北京"
-            android:textSize="18sp"
-            />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/top_title"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="@dimen/top_text_size"
             android:layout_weight="4"
+            android:gravity="center"
             android:text="爱大厨"
-            />
+            android:textSize="@dimen/top_text_size" />
 
         <TextView
-            android:id="@+id/top_search"
+            android:id="@+id/top_provision"
             android:layout_width="0dp"
             android:layout_height="@dimen/top_img_size"
-            android:layout_weight="1"
-            android:text="服务说明"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="center"
-            />
+            android:text="服务说明" />
     </LinearLayout>
 </LinearLayout>

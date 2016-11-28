@@ -1,102 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
 
-    tools:context="com.other.project.live.MainActivity">
 
-    <TextView
-        android:id="@+id/ceshi"
-        android:textSize="30sp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:text="asd"
-        android:gravity="center"/>
     <FrameLayout
-        android:id="@+id/container_framelayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/main_pilot_height">
+        tools:context="com.other.project.live.MainActivity"
+       >
 
-    </FrameLayout>
-
-    <!---->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_pilot_height"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
-
-        <View
+        <FrameLayout
+            android:id="@+id/container_framelayout"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#e9d7d7"></View>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/main_pilot_height">
 
-        <RadioGroup
-            android:id="@+id/bottom_radiogroup"
+        </FrameLayout>
+
+        <!---->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_pilot_height"
-            android:layout_margin="4dp"
-            android:layout_marginTop="3dp"
-            android:orientation="horizontal">
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
 
-            <RadioButton
-                android:id="@+id/main_btn"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:checked="true"
-                android:drawableTop="@drawable/navigation_home_selector"
-                android:gravity="center"
-                android:text="首页"
-                android:textColor="@drawable/navigation_text_selector"
-                android:textSize="@dimen/navigation_text_size" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#e9d7d7"></View>
 
-            <RadioButton
-                android:id="@+id/classify_btn"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:drawableTop="@drawable/navigation_gamelist_selector"
-                android:gravity="center"
-                android:text="厨师"
-                android:textColor="@drawable/navigation_text_selector"
-                android:textSize="@dimen/navigation_text_size" />
+            <RadioGroup
+                android:id="@+id/bottom_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/main_pilot_height"
+                android:layout_margin="4dp"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
 
+                <RadioButton
+                    android:id="@+id/main_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableTop="@drawable/navigation_home_selector"
+                    android:gravity="center"
+                    android:text="首页"
+                    android:textColor="@drawable/navigation_text_selector"
+                    android:textSize="@dimen/navigation_text_size" />
 
-            <RadioButton
-                android:id="@+id/anchor_btn"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:drawableTop="@drawable/navigation_anchorlist_selector"
-                android:gravity="center"
-                android:text="订单"
-                android:textColor="@drawable/navigation_text_selector"
-
-                android:textSize="@dimen/navigation_text_size" />
-
-            <RadioButton
-                android:id="@+id/myself_btn"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:button="@null"
-                android:drawableTop="@drawable/navigation_my_selector"
-                android:gravity="center"
-                android:text="我的"
-                android:textColor="@drawable/navigation_text_selector"
-                android:textSize="@dimen/navigation_text_size" />
-        </RadioGroup>
-
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/classify_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/navigation_gamelist_selector"
+                    android:gravity="center"
+                    android:text="厨师"
+                    android:textColor="@drawable/navigation_text_selector"
+                    android:textSize="@dimen/navigation_text_size" />
 
 
+                <RadioButton
+                    android:id="@+id/anchor_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/navigation_anchorlist_selector"
+                    android:gravity="center"
+                    android:text="订单"
+                    android:textColor="@drawable/navigation_text_selector"
+
+                    android:textSize="@dimen/navigation_text_size" />
+
+                <RadioButton
+                    android:id="@+id/myself_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableTop="@drawable/navigation_my_selector"
+                    android:gravity="center"
+                    android:text="我的"
+                    android:textColor="@drawable/navigation_text_selector"
+                    android:textSize="@dimen/navigation_text_size" />
+            </RadioGroup>
+
+        </LinearLayout>
 
 
-</FrameLayout>
+    </FrameLayout>
