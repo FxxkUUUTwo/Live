@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <com.other.project.live.widget.TopGroup
         android:id="@+id/position_topgroup"
@@ -58,7 +59,7 @@
         android:background="@color/gray"></View>
 
     <LinearLayout
-        android:id="@+id/bejing"
+
         android:layout_width="match_parent"
         android:layout_height="@dimen/left_menu_touch_layout_height"
         android:gravity="center_vertical"
@@ -67,9 +68,10 @@
 
 
         <TextView
+            android:id="@+id/bejing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="4"
             android:gravity="center_vertical"
             android:padding="10dp"
@@ -89,7 +91,7 @@
         android:background="@color/gray"></View>
 
     <LinearLayout
-        android:id="@+id/shenzhen"
+
         android:layout_width="match_parent"
         android:layout_height="@dimen/left_menu_touch_layout_height"
         android:gravity="center_vertical"
@@ -98,9 +100,10 @@
 
 
         <TextView
+            android:id="@+id/shenzhen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="4"
             android:gravity="center_vertical"
             android:padding="10dp"
@@ -121,7 +124,7 @@
         android:background="@color/gray"></View>
 
     <LinearLayout
-        android:id="@+id/shanghai"
+
         android:layout_width="match_parent"
         android:layout_height="@dimen/left_menu_touch_layout_height"
         android:gravity="center_vertical"
@@ -130,9 +133,10 @@
 
 
         <TextView
+            android:id="@+id/shanghai"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="4"
             android:gravity="center_vertical"
             android:padding="10dp"
@@ -153,7 +157,7 @@
         android:background="@color/gray"></View>
 
     <LinearLayout
-        android:id="@+id/guangzhou"
+
         android:layout_width="match_parent"
         android:layout_height="@dimen/left_menu_touch_layout_height"
         android:gravity="center_vertical"
@@ -162,9 +166,10 @@
 
 
         <TextView
+            android:id="@+id/guangzhou"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="4"
             android:gravity="center_vertical"
             android:padding="10dp"

@@ -8,10 +8,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     };
     private TextView viewById;
     private SlidingMenu mSlidingMenu;
+    private TextView beijing;
+    private TextView shanghai;
+    private TextView shenzhen;
+    private TextView guangzhou;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +74,25 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         mSlidingMenu = new SlidingMenu(this);
         mSlidingMenu.setMode(SlidingMenu.LEFT);//设置模式
         mSlidingMenu.setBehindOffsetRes(R.dimen.menu_offset);//配置菜单滑出后的剩余宽度
-        mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);//配置触摸模式
+        //mSlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);//配置触摸模式
         mSlidingMenu.attachToActivity(this, SlidingMenu.SLIDING_WINDOW);//将slidingMenu贴在Activity上
         mSlidingMenu.setMenu(R.layout.left_menu);//设置侧滑布局菜单
 
-
         mSlidingMenu.setOnOpenedListener(this);
         mSlidingMenu.setOnClosedListener(this);
-        // mSlidingMenu.setSecondaryMenu(R.layout.right_menu);//当模式为左右都存在时，想要设置右侧的属性，需要使用代有Secondary的属性
+
+        View menu = mSlidingMenu.getMenu();
+
+        this.beijing = (TextView) menu.findViewById(R.id.bejing);
+        Toast.makeText(MainActivity.this, beijing.getText().toString(), Toast.LENGTH_SHORT).show();
+        this.shanghai = (TextView) menu.findViewById(R.id.shanghai);
+        this.shenzhen = (TextView) menu.findViewById(R.id.shenzhen);
+        this.guangzhou = (TextView) menu.findViewById(R.id.guangzhou);
+        beijing.setOnClickListener(this);
+        shanghai.setOnClickListener(this);
+        shenzhen.setOnClickListener(this);
+        guangzhou.setOnClickListener(this);
+
     }
 
     private void initView() {
@@ -187,19 +202,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     @Override
     public void onOpened() {
 
-
         Log.e(TAG, "onOpened: 打开");
-        View view = LayoutInflater.from(this).inflate(R.layout.left_menu, null);
-
-        View beijing = view.findViewById(R.id.bejing);
-        View shanghai = view.findViewById(R.id.shanghai);
-        View shenzhen = view.findViewById(R.id.shenzhen);
-        View guangzhou = view.findViewById(R.id.guangzhou);
-        beijing.setOnClickListener(this);
-        shanghai.setOnClickListener(this);
-        shenzhen.setOnClickListener(this);
-        guangzhou.setOnClickListener(this);
-
 
     }
 
@@ -211,22 +214,27 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
             case R.id.bejing:
 
                 EventBus.getDefault().post(new MyEventBus("北京"));
+
+                Toast.makeText(MainActivity.this, "内径", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onClick: 北京");
                 break;
             case R.id.shanghai:
                 EventBus.getDefault().post(new MyEventBus("上海"));
+                Log.e(TAG, "onClick: 上海");
 
                 break;
             case R.id.shenzhen:
                 EventBus.getDefault().post(new MyEventBus("深圳"));
+                Log.e(TAG, "onClick: 深圳");
 
                 break;
             case R.id.guangzhou:
                 EventBus.getDefault().post(new MyEventBus("广州"));
+                Log.e(TAG, "onClick: 广州");
 
                 break;
         }
