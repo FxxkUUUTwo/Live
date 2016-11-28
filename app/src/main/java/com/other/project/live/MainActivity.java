@@ -217,27 +217,31 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         switch (view.getId()) {
             case R.id.bejing:
 
-                EventBus.getDefault().post(new MyEventBus("北京"));
+                EventBus.getDefault().postSticky(new MyEventBus("北京"));
 
-                Toast.makeText(MainActivity.this, "内径", Toast.LENGTH_SHORT).show();
+
                 Log.e(TAG, "onClick: 北京");
+
                 break;
             case R.id.shanghai:
-                EventBus.getDefault().post(new MyEventBus("上海"));
+                EventBus.getDefault().postSticky(new MyEventBus("上海"));
                 Log.e(TAG, "onClick: 上海");
 
                 break;
             case R.id.shenzhen:
-                EventBus.getDefault().post(new MyEventBus("深圳"));
+                EventBus.getDefault().postSticky(new MyEventBus("深圳"));
                 Log.e(TAG, "onClick: 深圳");
 
                 break;
             case R.id.guangzhou:
-                EventBus.getDefault().post(new MyEventBus("广州"));
+                EventBus.getDefault().postSticky(new MyEventBus("广州"));
                 Log.e(TAG, "onClick: 广州");
+
 
                 break;
         }
+        mSlidingMenu.toggle();
+
     }
 
 
