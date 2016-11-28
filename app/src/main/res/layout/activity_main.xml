@@ -59,6 +59,7 @@
                 android:textColor="@drawable/navigation_text_selector"
                 android:textSize="@dimen/navigation_text_size" />
 
+
             <RadioButton
                 android:id="@+id/anchor_btn"
                 android:layout_width="0dp"
@@ -86,5 +87,8 @@
         </RadioGroup>
 
     </LinearLayout>
+
+
+
 
 </FrameLayout>
