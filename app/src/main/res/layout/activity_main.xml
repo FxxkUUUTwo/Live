@@ -63,7 +63,7 @@
                 android:button="@null"
                 android:drawableTop="@drawable/navigation_gamelist_selector"
                 android:gravity="center"
-                android:text="栏目分类"
+                android:text="厨师"
                 android:textColor="@drawable/navigation_text_selector"
                 android:textSize="@dimen/navigation_text_size" />
 
@@ -76,7 +76,7 @@
                 android:button="@null"
                 android:drawableTop="@drawable/navigation_anchorlist_selector"
                 android:gravity="center"
-                android:text="主播头条"
+                android:text="订单"
                 android:textColor="@drawable/navigation_text_selector"
 
                 android:textSize="@dimen/navigation_text_size" />
