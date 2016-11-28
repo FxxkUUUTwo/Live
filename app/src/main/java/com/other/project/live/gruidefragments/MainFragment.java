@@ -1,6 +1,6 @@
 package com.other.project.live.gruidefragments;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.other.project.live.MainActivity;
 import com.other.project.live.R;
-import com.other.project.live.activities.PositionActivity;
 import com.other.project.live.base.BaseFragment;
 import com.other.project.live.custom.MyEventBus;
 import com.other.project.live.widget.TopGroup;
@@ -29,6 +29,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     private TopGroup mTopGroup;
     private TextView mPosition;
 
+    private MainActivity a;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        a = (MainActivity) context;
+    }
 
     @Override
     public void onResume() {
@@ -75,9 +82,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
+        a.toggle();
 
-        Intent intent = new Intent(getActivity(), PositionActivity.class);
-        MainFragment.this.startActivityForResult(intent, REQUEST_CODE);
 
     }
 
@@ -87,8 +93,15 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
 
         MyEventBus stickyEvent = EventBus.getDefault().getStickyEvent(MyEventBus.class);
 
-        Log.e(TAG, "MainonEvent: " + stickyEvent.getCity());
 
+        mPosition.setText(stickyEvent.getCity());
+
+        Log.e(TAG, "MainonEvent: " + stickyEvent.getCity());
+    }
+
+
+    public interface backToggle {
+        void toggle();
     }
 
 }

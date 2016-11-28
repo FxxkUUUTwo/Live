@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,10 +27,13 @@ import com.other.project.live.gruidefragments.MyselfFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 *
 * My Live*/
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, SlidingMenu.OnOpenedListener, SlidingMenu.OnClosedListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, SlidingMenu.OnOpenedListener, SlidingMenu.OnClosedListener, View.OnClickListener, MainFragment.backToggle {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private Fragment showFragment;
@@ -56,6 +60,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private TextView shanghai;
     private TextView shenzhen;
     private TextView guangzhou;
+    private ImageView beijingImage;
+    private ImageView shanghaiImage;
+    private ImageView shenZhenImage;
+    private ImageView guangZhouImage;
+    private TextView currentCity;
+
+    private List<String> citys = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +99,15 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         this.shanghai = (TextView) menu.findViewById(R.id.shanghai);
         this.shenzhen = (TextView) menu.findViewById(R.id.shenzhen);
         this.guangzhou = (TextView) menu.findViewById(R.id.guangzhou);
+
+        currentCity = ((TextView) menu.findViewById(R.id.curr_city));
+
+        currentCity.setOnClickListener(this);
+        beijingImage = ((ImageView) menu.findViewById(R.id.beijing_img));
+        shanghaiImage = ((ImageView) menu.findViewById(R.id.shanghai_img));
+        shenZhenImage = ((ImageView) menu.findViewById(R.id.shenzhen_img));
+        guangZhouImage = ((ImageView) menu.findViewById(R.id.guangzhou_img));
+
         beijing.setOnClickListener(this);
         shanghai.setOnClickListener(this);
         shenzhen.setOnClickListener(this);
@@ -96,8 +116,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
     private void initView() {
-
-
+        citys.add("北京");
+        citys.add("上海");
+        citys.add("深圳");
+        citys.add("广州");
         mRadioGroup = (RadioGroup) findViewById(R.id.bottom_radiogroup);
 
         mRadioGroup.setOnCheckedChangeListener(this);
@@ -214,34 +236,73 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()) {
+
             case R.id.bejing:
 
-                EventBus.getDefault().postSticky(new MyEventBus("北京"));
+                beijingImage.setVisibility(View.VISIBLE);
+                shanghaiImage.setVisibility(View.GONE);
+                shenZhenImage.setVisibility(View.GONE);
+
+                guangZhouImage.setVisibility(View.GONE);
+                EventBus.getDefault().postSticky(new MyEventBus(citys.get(0)));
 
 
                 Log.e(TAG, "onClick: 北京");
 
                 break;
             case R.id.shanghai:
-                EventBus.getDefault().postSticky(new MyEventBus("上海"));
+                shanghaiImage.setVisibility(View.VISIBLE);
+                beijingImage.setVisibility(View.GONE);
+                shenZhenImage.setVisibility(View.GONE);
+
+                guangZhouImage.setVisibility(View.GONE);
+                EventBus.getDefault().postSticky(new MyEventBus(citys.get(1)));
                 Log.e(TAG, "onClick: 上海");
 
                 break;
             case R.id.shenzhen:
-                EventBus.getDefault().postSticky(new MyEventBus("深圳"));
+                shenZhenImage.setVisibility(View.VISIBLE);
+                beijingImage.setVisibility(View.GONE);
+                shanghaiImage.setVisibility(View.GONE);
+                guangZhouImage.setVisibility(View.GONE);
+
+                EventBus.getDefault().postSticky(new MyEventBus(citys.get(2)));
                 Log.e(TAG, "onClick: 深圳");
 
                 break;
             case R.id.guangzhou:
-                EventBus.getDefault().postSticky(new MyEventBus("广州"));
+                guangZhouImage.setVisibility(View.VISIBLE);
+                beijingImage.setVisibility(View.GONE);
+                shanghaiImage.setVisibility(View.GONE);
+                shenZhenImage.setVisibility(View.GONE);
+                EventBus.getDefault().postSticky(new MyEventBus(citys.get(3)));
                 Log.e(TAG, "onClick: 广州");
 
 
                 break;
+
+            case R.id.curr_city:
+                if (citys.contains(currentCity.getText().toString())) {
+                    EventBus.getDefault().postSticky(new MyEventBus(currentCity.getText().toString()));
+
+                } else {
+                    EventBus.getDefault().postSticky(new MyEventBus("北京"));
+                    Toast.makeText(MainActivity.this, "当前城市不可用", Toast.LENGTH_SHORT).show();
+
+                }
+
+                break;
         }
+
         mSlidingMenu.toggle();
 
+    }
+
+    @Override
+    public void toggle() {
+        mSlidingMenu.toggle();
     }
 
 
@@ -254,14 +315,16 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
             if (bdLocation == null) {
                 client.start();
-                Log.e(TAG, "onReceiveLocation=======: " + bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "" + ":" + bdLocation.getLocType());
-                viewById.setText(bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "");
+                currentCity.setText(bdLocation.getCity());
                 handler.sendEmptyMessage(0x100);
 
 
             }
-            Log.e(TAG, "onReceiveLocation=======: " + bdLocation.getLatitude() + ":" + bdLocation.getLongitude() + "" + bdLocation.getAddrStr() + ":" + bdLocation.getLocType());
 
+            currentCity.setText(bdLocation.getCity());
+
+            Location.latitude = bdLocation.getLatitude();
+            Location.longitude = bdLocation.getLongitude();
             handler.sendEmptyMessage(0x100);
 
         }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.other.project.live.Location;
 import com.other.project.live.R;
 import com.other.project.live.base.BaseFragment;
 import com.other.project.live.custom.MyEventBus;
@@ -27,6 +28,9 @@ public class AnchorHeadLineFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_anchorheadline_layout, container, false);
+
+        Log.e(TAG, "onCreateView: " + Location.latitude);
+
         return view;
     }
 
@@ -36,7 +40,6 @@ public class AnchorHeadLineFragment extends BaseFragment {
 
         MyEventBus stickyEvent = EventBus.getDefault().getStickyEvent(MyEventBus.class);
 
-        Log.e(TAG, "onEvent: " + stickyEvent.getCity());
 
     }
 
