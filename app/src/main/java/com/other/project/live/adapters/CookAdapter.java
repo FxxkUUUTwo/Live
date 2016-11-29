@@ -2,7 +2,6 @@ package com.other.project.live.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,12 @@ import android.widget.TextView;
 
 import com.other.project.live.R;
 import com.other.project.live.model.CookList;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 /**
  * Created by Administrator on 2016/11/28.
@@ -58,13 +60,16 @@ public class CookAdapter extends RecyclerView.Adapter<CookAdapter.ViewHolder> {
         List<CookList.DataBean.ResultsBean.TagsBean> tags = data.get(position).getTags();
         StringBuffer stringBuffer=new StringBuffer();
         for (CookList.DataBean.ResultsBean.TagsBean tag: tags) {
-            stringBuffer.append(" "+tag);
+            String name = tag.getName();
+            stringBuffer.append("  "+name);
         }
         String tagsStr = stringBuffer.toString();
         holder.good.setText(tagsStr);
-        Log.e(TAG, "onBindViewHolder: "+tagsStr );
         holder.count.setText(data.get(position).getBespeak_num()+"人次");
         holder.cookName.setText(data.get(position).getName());
+        Picasso.with(holder.imgIcon.getContext()).load(data.get(position).getHead_small())
+                .transform(new CropCircleTransformation())
+                .into(holder.imgIcon);
 
     }
 

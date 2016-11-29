@@ -57,7 +57,7 @@ public class ClassifyFragment extends BaseFragment implements View.OnClickListen
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-        setupView();
+        setupView(new Date().getTime());
     }
 
 
@@ -77,10 +77,10 @@ public class ClassifyFragment extends BaseFragment implements View.OnClickListen
 
     }
 
-    private void setupView() {
+    private void setupView(long time) {
 
         OkHttpUtils.get()
-                .url(BaseUrl.COOK_ONE+page+BaseUrl.COOK_TWO+longitude+","+latitude+BaseUrl.COOK_THREE+new Date().getTime()+BaseUrl.COOK_FOUR+city)
+                .url(BaseUrl.COOK_ONE+page+BaseUrl.COOK_TWO+longitude+","+latitude+BaseUrl.COOK_THREE+time+BaseUrl.COOK_FOUR+city)
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -136,7 +136,7 @@ public class ClassifyFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onRefresh() {
-        page++;
-        setupView();
+        //
+        setupView(new Date().getTime());
     }
 }
