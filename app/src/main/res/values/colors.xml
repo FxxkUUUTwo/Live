@@ -7,5 +7,7 @@
     <color name="no_touch">#dfbaba</color>
     <color name="chun_white">#ffffff</color>
     <color name="gray">#a69f9f</color>
+    <color name="red">#fa0303</color>
+    <color name="filter_color">#cccccc</color>
 
 </resources>
