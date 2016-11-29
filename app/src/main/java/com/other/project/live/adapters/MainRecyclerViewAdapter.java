@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.other.project.live.R;
 import com.other.project.live.model.MainModel;
 
 import java.util.ArrayList;
@@ -52,9 +54,15 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-private LinearLayout hot_service;
+        LinearLayout hot_service;
+
+        ImageView content_img;
+
         public ViewHolder(View itemView) {
             super(itemView);
+
+            hot_service= ((LinearLayout) itemView.findViewById(R.id.hot_service));
+
         }
     }
 
