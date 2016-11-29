@@ -136,6 +136,7 @@ public class ClassifyFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onRefresh() {
+        //
         setupView(new Date().getTime());
     }
 }
