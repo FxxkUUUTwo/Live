@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,8 +19,10 @@ import com.other.project.live.R;
 import com.other.project.live.adapters.MainViewPagerAdapter;
 import com.other.project.live.base.BaseFragment;
 import com.other.project.live.custom.MyEventBus;
+import com.other.project.live.model.MainModel;
 import com.other.project.live.model.TopModel;
 import com.other.project.live.url.BaseUrl;
+import com.other.project.live.widget.AutoScollTextView;
 import com.other.project.live.widget.TopGroup;
 import com.squareup.picasso.Picasso;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -56,7 +56,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private ViewPager mViewPager;
     private String city;
     private LinearLayout mPointLinearLayout;
-    private TextView mScollTextView;
+    private AutoScollTextView mScollTextView;
 
     @Override
     public void onAttach(Context context) {
@@ -101,8 +101,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         mPointLinearLayout = (LinearLayout) view.findViewById(R.id.point_linearlayout);
 
 
-        mScollTextView = ((TextView) view.findViewById(R.id.scoll_textview));
-
+        mScollTextView = (AutoScollTextView) view.findViewById(R.id.scoll_textview);
         return view;
     }
 
@@ -114,12 +113,9 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         mProvision.setOnClickListener(this);
 
         mViewPager.addOnPageChangeListener(this);
+        mScollTextView.init(getActivity().getWindowManager());
 
-        Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.scollanimation);
-        mScollTextView.startAnimation(animation);
-
-
-
+        mScollTextView.startScroll();
         requestData();
 
 
@@ -157,7 +153,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                     Log.e(TAG + "---------", "onResponse: " + stringBuffer.toString());
                     Gson gson = new Gson();
                     String json = stringBuffer.toString();
-                    //MainModel mainModel = gson.fromJson(json, MainModel.class);
+                    MainModel mainModel = gson.fromJson(json, MainModel.class);
 
 
                     //手动解析
