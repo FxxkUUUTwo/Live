@@ -67,7 +67,7 @@ public class MainModel  {
         private List<?> expands;
         private List<TagsBean> tags;
         private List<ButtonsBean> buttons;
-        private List<HotBean> hot;
+        //private List<HotBean> hot;
         private List<PackagesBean> packages;
 
         public int getWeixin10() {
@@ -157,14 +157,14 @@ public class MainModel  {
         public void setEvents(List<EventsBean> events) {
             this.events = events;
         }
-
+/*
         public List<TopBean> getTop() {
             return top;
         }
 
-        public void setTop(List<TopBean> top) {
+       public void setTop(List<TopBean> top) {
             this.top = top;
-        }
+        }*/
 
         public List<?> getExpands() {
             return expands;
@@ -190,7 +190,7 @@ public class MainModel  {
             this.buttons = buttons;
         }
 
-        public List<HotBean> getHot() {
+   /*     public List<HotBean> getHot() {
             return hot;
         }
 
@@ -200,7 +200,7 @@ public class MainModel  {
 
         public List<PackagesBean> getPackages() {
             return packages;
-        }
+        }*/
 
         public void setPackages(List<PackagesBean> packages) {
             this.packages = packages;

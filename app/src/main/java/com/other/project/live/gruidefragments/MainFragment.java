@@ -9,15 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.other.project.live.MainActivity;
 import com.other.project.live.R;
 import com.other.project.live.base.BaseFragment;
 import com.other.project.live.custom.MyEventBus;
+import com.other.project.live.model.MainModel;
 import com.other.project.live.widget.TopGroup;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import okhttp3.Call;
 
 /**
  * Created by wanghaixin on 16/11/26.
@@ -80,6 +86,33 @@ public class MainFragment extends BaseFragment implements View.OnClickListener {
 
         mPosition.setOnClickListener(this);
         mProvision.setOnClickListener(this);
+
+        OkHttpUtils.get().url("http://www.idachu.cn/api/welcome?timestamp=1480307555880&nonstr=d893ffbf4fa5454c6b7c053aeadc33a5&devicetoken=34c48d87bc6b03d6939190f1f77f90eb&ll=&sign=57323dc4dc570544e14ce64432652a49").build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.e(TAG, "onError: " + e.getCause());
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e(TAG, "onResponse: " + response);
+
+                String[] s = response.split("\\\\");
+
+                StringBuffer stringBuffer = new StringBuffer();
+                for (int i = 0; i < s.length; i++) {
+                    stringBuffer.append(s[i]);
+                }
+                Log.e(TAG + "---------", "onResponse: " + stringBuffer.toString());
+                Gson gson = new Gson();
+                MainModel mainModel = gson.fromJson(stringBuffer.toString(), MainModel.class);
+
+
+                Log.e(TAG, "onResponse: " + mainModel.getData().getShare().getTitle());
+
+
+            }
+        });
 
 
     }
