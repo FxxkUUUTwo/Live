@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.other.project.live.R;
-import com.other.project.live.model.MainModel;
+import com.other.project.live.model.HotModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,13 @@ import java.util.List;
  */
 public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder> {
 
-    private List<MainModel> data;
+    private List<HotModel> data;
 
     private LayoutInflater inflater;
 
-    public MainRecyclerViewAdapter(List<MainModel> data, Context context) {
+    private Context context;
+
+    public MainRecyclerViewAdapter(List<HotModel> data, Context context) {
 
         if (data != null) {
             this.data = data;
@@ -31,18 +34,29 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
             this.data = new ArrayList<>();
         }
         inflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        View inflate = inflater.inflate(R.layout.mian_item_layout, parent, false);
 
-        return null;
+        return new ViewHolder(inflate);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        if (position == 1) {
+            holder.hot_service.setVisibility(View.VISIBLE);
+            Picasso.with(context).load(data.get(position).getImg()).into(holder.content_img);
+        } else {
+
+            holder.hot_service.setVisibility(View.GONE);
+            Picasso.with(context).load(data.get(position).getImg()).into(holder.content_img);
+
+        }
     }
 
 
@@ -61,9 +75,18 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         public ViewHolder(View itemView) {
             super(itemView);
 
-            hot_service= ((LinearLayout) itemView.findViewById(R.id.hot_service));
+            hot_service = ((LinearLayout) itemView.findViewById(R.id.hot_service));
 
+            content_img = ((ImageView) itemView.findViewById(R.id.content_img));
         }
     }
 
+    public void updateRec(List<HotModel> data) {
+        if (data != null) {
+            this.data.clear();
+            this.data = data;
+            notifyDataSetChanged();
+        }
+
+    }
 }
