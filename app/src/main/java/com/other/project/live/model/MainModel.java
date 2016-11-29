@@ -197,10 +197,10 @@ public class MainModel  {
         public void setHot(List<HotBean> hot) {
             this.hot = hot;
         }
-
+*/
         public List<PackagesBean> getPackages() {
             return packages;
-        }*/
+        }
 
         public void setPackages(List<PackagesBean> packages) {
             this.packages = packages;
