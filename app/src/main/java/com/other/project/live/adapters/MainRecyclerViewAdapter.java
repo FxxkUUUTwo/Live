@@ -2,6 +2,7 @@ package com.other.project.live.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder> {
 
+    private static final String TAG = MainRecyclerViewAdapter.class.getSimpleName();
     private List<HotModel> data;
 
     private LayoutInflater inflater;
@@ -48,15 +50,18 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        if (position == 1) {
+        Log.e(TAG, "onBindViewHolder:-------- " + data.get(position).getImg());
+        if (position == 0) {
             holder.hot_service.setVisibility(View.VISIBLE);
-            Picasso.with(context).load(data.get(position).getImg()).into(holder.content_img);
+
+
         } else {
 
             holder.hot_service.setVisibility(View.GONE);
-            Picasso.with(context).load(data.get(position).getImg()).into(holder.content_img);
 
         }
+        holder.content_img.setScaleType(ImageView.ScaleType.FIT_XY);
+        Picasso.with(context).load(data.get(position).getImg()).into(holder.content_img);
     }
 
 

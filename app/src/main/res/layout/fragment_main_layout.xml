@@ -119,7 +119,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
@@ -132,8 +132,9 @@
 
                     <ImageView
                         android:id="@+id/jiachangyongcan"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_horizontal"
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
@@ -159,8 +160,9 @@
 
                     <ImageView
                         android:id="@+id/sirendingzhi"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_horizontal"
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
@@ -182,13 +184,13 @@
                 android:background="#cab8b8"></View>
 
 
-            <android.support.v7.widget.RecyclerView
+            <com.other.project.live.widget.CustomRecyclerView
                 android:id="@+id/mian_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
 
-            </android.support.v7.widget.RecyclerView>
+            </com.other.project.live.widget.CustomRecyclerView>
         </LinearLayout>
     </ScrollView>
 

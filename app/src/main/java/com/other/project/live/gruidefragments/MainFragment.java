@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import com.other.project.live.model.PhoneChange;
 import com.other.project.live.model.TopModel;
 import com.other.project.live.url.BaseUrl;
 import com.other.project.live.widget.AutoScollTextView;
+import com.other.project.live.widget.CustomLinearManager;
 import com.other.project.live.widget.TopGroup;
 import com.squareup.picasso.Picasso;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -71,6 +73,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private ImageView mDingZhi;
     private RecyclerView mRecyclerView;
     private MainRecyclerViewAdapter mRecyclerViewAdapter;
+    private CustomLinearManager linearLayoutManager;
 
     @Override
     public void onAttach(Context context) {
@@ -127,7 +130,12 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         mDingZhi = (ImageView) view.findViewById(R.id.sirendingzhi);
 
         mRecyclerView = ((RecyclerView) view.findViewById(R.id.mian_recyclerview));
+        linearLayoutManager = new CustomLinearManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+
         mRecyclerViewAdapter = new MainRecyclerViewAdapter(null, getActivity());
+
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
         return view;
     }
 
@@ -261,7 +269,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                                 Log.e(TAG, "onResponse: " + e.getMessage());
                                 e.printStackTrace();
                             }
-
+                            Log.e(TAG, "onResponse:=========11111111-====== " + hotData.get(0).getImg());
                             mRecyclerViewAdapter.updateRec(hotData);
 
 
