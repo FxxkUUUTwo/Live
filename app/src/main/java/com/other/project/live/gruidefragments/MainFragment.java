@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -17,9 +18,12 @@ import com.other.project.live.Location;
 import com.other.project.live.MainActivity;
 import com.other.project.live.R;
 import com.other.project.live.adapters.MainViewPagerAdapter;
+import com.other.project.live.base.BaseApplication;
 import com.other.project.live.base.BaseFragment;
+import com.other.project.live.constants.HttpParams;
 import com.other.project.live.custom.MyEventBus;
 import com.other.project.live.model.MainModel;
+import com.other.project.live.model.PhoneChange;
 import com.other.project.live.model.TopModel;
 import com.other.project.live.url.BaseUrl;
 import com.other.project.live.widget.AutoScollTextView;
@@ -35,6 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,6 +62,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private String city;
     private LinearLayout mPointLinearLayout;
     private AutoScollTextView mScollTextView;
+    private ImageView mErrorImage;
+    private RelativeLayout mRelativeLayout;
+    private ImageView mYongCan;
+    private ImageView mDingZhi;
 
     @Override
     public void onAttach(Context context) {
@@ -102,6 +111,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
 
         mScollTextView = (AutoScollTextView) view.findViewById(R.id.scoll_textview);
+
+        mErrorImage = ((ImageView) view.findViewById(R.id.error_img));
+
+        mRelativeLayout = ((RelativeLayout) view.findViewById(R.id.relativelayout));
+
+        mYongCan = ((ImageView) view.findViewById(R.id.jiachangyongcan));
+        mDingZhi = (ImageView) view.findViewById(R.id.sirendingzhi);
         return view;
     }
 
@@ -109,16 +125,48 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mErrorImage.setOnClickListener(this);
         mPosition.setOnClickListener(this);
         mProvision.setOnClickListener(this);
 
         mViewPager.addOnPageChangeListener(this);
+
+        mYongCan.setOnClickListener(this);
+        mDingZhi.setOnClickListener(this);
+
         mScollTextView.init(getActivity().getWindowManager());
 
         mScollTextView.startScroll();
         requestData();
 
+        requestPhoneChange();
+    }
 
+    private void requestPhoneChange() {
+        try {
+            OkHttpUtils.get()
+
+                    .url(BaseUrl.PHONE_CHANGE + new Date().getTime() + BaseUrl.PHONE_CHANGE2 + URLEncoder.encode(Location.city, "UTF-8"))
+                    .addHeader(HttpParams.CACHE_CONTROL, BaseApplication.getCacheControl())
+                    .build()
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+
+                            Gson gson = new Gson();
+                            PhoneChange phoneChange = gson.fromJson(response, PhoneChange.class);
+                            mScollTextView.setText(phoneChange.getData().getNotice().get(0).getTitle());
+                            mScollTextView.init(getActivity().getWindowManager());
+                        }
+                    });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     private void requestData() {
@@ -129,96 +177,103 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 this.city = this.city;
 
             }
-            OkHttpUtils.get().url(BaseUrl.MAIN_PATH + new Date().getTime() + BaseUrl.MAIN_PATH2 + URLEncoder.encode(Location.city, "UTF-8")).build().execute(new StringCallback() {
-                private MainViewPagerAdapter mViewPagerAdapter;
+            OkHttpUtils.get()
+
+                    .url(BaseUrl.MAIN_PATH + new Date().getTime() + BaseUrl.MAIN_PATH2 + URLEncoder.encode(Location.city, "UTF-8"))
+                    .addHeader(HttpParams.CACHE_CONTROL, BaseApplication.getCacheControl())
+                    .build()
+                    .execute(new StringCallback() {
+                        private MainViewPagerAdapter mViewPagerAdapter;
 
 
-                @Override
-                public void onError(Call call, Exception e, int id) {
-                    Log.e(TAG, "onError: " + e.getCause());
-                    Log.e(TAG, "onError: " + e.getMessage());
-                }
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            Log.e(TAG, "onError: " + e.getCause());
+                            Log.e(TAG, "onError: " + e.getMessage());
+                        }
 
-                @Override
-                public void onResponse(String response, int id) {
-                    Log.e(TAG, "onResponse: " + response);
+                        @Override
+                        public void onResponse(String response, int id) {
+                            Log.e(TAG, "onResponse: " + response);
 
-                    String[] s = response.split("\\\\");
+                            String[] s = response.split("\\\\");
 
-                    StringBuffer stringBuffer = new StringBuffer();
+                            StringBuffer stringBuffer = new StringBuffer();
 
-                    for (int i = 0; i < s.length; i++) {
-                        stringBuffer.append(s[i]);
-                    }
-                    Log.e(TAG + "---------", "onResponse: " + stringBuffer.toString());
-                    Gson gson = new Gson();
-                    String json = stringBuffer.toString();
-                    MainModel mainModel = gson.fromJson(json, MainModel.class);
-
-
-                    //手动解析
-                    //JsonObject jsonObject = new JsonObject(json);
-                    List<TopModel> topData = new ArrayList<TopModel>();
-                    List<ImageView> Images = new ArrayList<>();
-
-                    try {
-
-                        JSONObject jsonObject = new JSONObject(json);
-                        JSONObject data = jsonObject.getJSONObject("data");
-                        JSONArray top = data.getJSONArray("top");
-
-                        Log.e(TAG, "onResponse:````````````````````````` " + top.get(0));
-                        for (int i = 0; i < top.length(); i++) {
-
-                            addPoint();
-                            Log.e(TAG, "onResponse: 啥?" + top.length());
-                            ImageView view = new ImageView(getActivity());
-
-                            view.setScaleType(ImageView.ScaleType.FIT_XY);
-                            TopModel topModel1 = new TopModel();
-                            String title = top.getJSONObject(i).getString("title");
-                            String img = top.getJSONObject(i).getString("img");
-
-                            Picasso.with(getActivity()).load(img).into(view);
-
-                            Images.add(view);
-                            topModel1.setTitle(title);
-                            topModel1.setImg(img);
+                            for (int i = 0; i < s.length; i++) {
+                                stringBuffer.append(s[i]);
+                            }
+                            Log.e(TAG + "---------", "onResponse: " + stringBuffer.toString());
+                            Gson gson = new Gson();
+                            String json = stringBuffer.toString();
+                            MainModel mainModel = gson.fromJson(json, MainModel.class);
 
 
-                            if (i != 2) {
+                            Picasso.with(getActivity()).load(mainModel.getData().getButtons().get(0).getIcon()).into(mYongCan);
+                            Picasso.with(getActivity()).load(mainModel.getData().getButtons().get(1).getIcon()).into(mDingZhi);
+                            //手动解析
+                            //JsonObject jsonObject = new JsonObject(json);
+                            List<TopModel> topData = new ArrayList<TopModel>();
+                            List<ImageView> Images = new ArrayList<>();
 
-                                String uri1 = top.getJSONObject(i).getString("uri");
+                            try {
+
+                                JSONObject jsonObject = new JSONObject(json);
+                                JSONObject data = jsonObject.getJSONObject("data");
+                                JSONArray top = data.getJSONArray("top");
+
+                                Log.e(TAG, "onResponse:````````````````````````` " + top.get(0));
+                                for (int i = 0; i < top.length(); i++) {
+
+                                    addPoint();
+                                    Log.e(TAG, "onResponse: 啥?" + top.length());
+                                    ImageView view = new ImageView(getActivity());
+
+                                    view.setScaleType(ImageView.ScaleType.FIT_XY);
+                                    TopModel topModel1 = new TopModel();
+                                    String title = top.getJSONObject(i).getString("title");
+                                    String img = top.getJSONObject(i).getString("img");
+
+                                    Picasso.with(getActivity()).load(img).into(view);
+
+                                    Images.add(view);
+                                    topModel1.setTitle(title);
+                                    topModel1.setImg(img);
 
 
-                                Log.e(TAG, "onResponse: 120000000000000" + uri1);
-                                topModel1.setUri(uri1);
+                                    if (i != 2) {
 
-                            } else {
-                                String uri2 = top.getJSONObject(i).getJSONObject("uri").getString("url");
-                                Log.e(TAG, "onResponse: 30000000000000000" + uri2);
-
-                                topModel1.setUri(uri2);
+                                        String uri1 = top.getJSONObject(i).getString("uri");
 
 
+                                        Log.e(TAG, "onResponse: 120000000000000" + uri1);
+                                        topModel1.setUri(uri1);
+
+                                    } else {
+                                        String uri2 = top.getJSONObject(i).getJSONObject("uri").getString("url");
+                                        Log.e(TAG, "onResponse: 30000000000000000" + uri2);
+
+                                        topModel1.setUri(uri2);
+
+
+                                    }
+
+                                    topData.add(topModel1);
+                                }
+                            } catch (JSONException e) {
+                                Log.e(TAG, "onResponse: " + e.getCause());
+                                Log.e(TAG, "onResponse: " + e.getMessage());
+                                e.printStackTrace();
                             }
 
-                            topData.add(topModel1);
+
+                            mPointLinearLayout.getChildAt(0).setBackgroundResource(R.mipmap.yuandian_click);
+                            mViewPagerAdapter = new MainViewPagerAdapter(Images);
+                            mViewPager.setAdapter(mViewPagerAdapter);
+
+
                         }
-                    } catch (JSONException e) {
-                        Log.e(TAG, "onResponse: " + e.getCause());
-                        Log.e(TAG, "onResponse: " + e.getMessage());
-                        e.printStackTrace();
-                    }
-
-
-                    mPointLinearLayout.getChildAt(0).setBackgroundResource(R.mipmap.yuandian_click);
-                    mViewPagerAdapter = new MainViewPagerAdapter(Images);
-                    mViewPager.setAdapter(mViewPagerAdapter);
-
-
-                }
-            });
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -247,6 +302,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             case R.id.top_provision:
 
                 break;
+
+            case R.id.error_img:
+                mRelativeLayout.setVisibility(View.GONE);
+                break;
         }
 
 
@@ -263,6 +322,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         // Log.e(TAG, "MainonEvent: " + stickyEvent.getCity());
 
         requestData();
+        requestPhoneChange();
     }
 
     @Override

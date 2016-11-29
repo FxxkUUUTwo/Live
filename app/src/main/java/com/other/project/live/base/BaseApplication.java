@@ -76,7 +76,7 @@ public class BaseApplication extends Application {
 
 
     public static String getCacheControl() {
-        return NetWorkUtil.isConnected(context) ? "max-age=15" : "only-if-cache,max-stale=" + 2 * 60 * 60;
+        return NetWorkUtil.isConnected(context) ? "max-age=60" : "only-if-cache,max-stale=" + 2 * 60 * 60;
     }
 
 }

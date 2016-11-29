@@ -64,10 +64,10 @@ public class AutoScollTextView extends TextView implements View.OnClickListener 
                 viewWidth = display.getWidth();
             }
         }
-        step = textLength;
-        temp_view_plus_text_length = viewWidth + textLength;
-        temp_view_plus_two_text_length = viewWidth + textLength * 2;
-        y = getTextSize() + getPaddingTop();
+        step = 1;
+        temp_view_plus_text_length = viewWidth -10;
+        temp_view_plus_two_text_length = viewWidth + textLength ;
+        y = getTextSize() + getPaddingTop()+8;
     }
 
     @Override
@@ -158,9 +158,9 @@ public class AutoScollTextView extends TextView implements View.OnClickListener 
         if (!isStarting) {
             return;
         }
-        step += 0.5;
+        step += 1;
         if (step > temp_view_plus_two_text_length)
-            step = textLength;
+            step = 1;
         invalidate();
 
     }
@@ -174,7 +174,4 @@ public class AutoScollTextView extends TextView implements View.OnClickListener 
 
     }
 
-    public void setTexts(String s) {
-        this.setText(s);
-    }
 }
