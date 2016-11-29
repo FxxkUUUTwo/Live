@@ -39,4 +39,63 @@
             android:gravity="center"
             android:text="服务说明" />
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/viewpager_height">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/top_vp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/viewpager_height">
+
+        </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:id="@+id/point_linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#f2ebeb"
+        android:gravity="center_vertical">
+
+
+        <TextView
+            android:id="@+id/scoll_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+
+            android:gravity="center"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="1111111111111111111111111" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/error" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:src="@mipmap/lingdang" />
+    </RelativeLayout>
+
 </LinearLayout>

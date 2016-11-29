@@ -23,4 +23,5 @@
     <dimen name="cook_address_time_height">50dp</dimen>
     <dimen name="cook_address_time_size">17sp</dimen>
     <dimen name="cook_filter_height">27dp</dimen>
+    <dimen name="viewpager_height">240dp</dimen>
 </resources>

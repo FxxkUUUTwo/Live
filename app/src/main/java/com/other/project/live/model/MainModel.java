@@ -63,7 +63,7 @@ public class MainModel  {
         private int max_distance;
         private int uid;
         private List<EventsBean> events;
-        private List<TopBean> top;
+        //private List<TopBean> top;
         private List<?> expands;
         private List<TagsBean> tags;
         private List<ButtonsBean> buttons;

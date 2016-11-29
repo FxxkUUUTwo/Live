@@ -249,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 EventBus.getDefault().postSticky(new MyEventBus(citys.get(0)));
 
 
+                Location.city = "北京";
                 Log.e(TAG, "onClick: 北京");
 
                 break;
@@ -260,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 guangZhouImage.setVisibility(View.GONE);
                 EventBus.getDefault().postSticky(new MyEventBus(citys.get(1)));
                 Log.e(TAG, "onClick: 上海");
+                Location.city = "上海";
 
                 break;
             case R.id.shenzhen:
@@ -270,6 +272,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
                 EventBus.getDefault().postSticky(new MyEventBus(citys.get(2)));
                 Log.e(TAG, "onClick: 深圳");
+                Location.city = "深圳";
 
                 break;
             case R.id.guangzhou:
@@ -280,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 EventBus.getDefault().postSticky(new MyEventBus(citys.get(3)));
                 Log.e(TAG, "onClick: 广州");
 
+                Location.city = "广州";
 
                 break;
 
