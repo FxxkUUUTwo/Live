@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
         }
     };
-    private TextView viewById;
     private SlidingMenu mSlidingMenu;
     private TextView beijing;
     private TextView shanghai;
@@ -95,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         View menu = mSlidingMenu.getMenu();
 
         this.beijing = (TextView) menu.findViewById(R.id.bejing);
-        Toast.makeText(MainActivity.this, beijing.getText().toString(), Toast.LENGTH_SHORT).show();
         this.shanghai = (TextView) menu.findViewById(R.id.shanghai);
         this.shenzhen = (TextView) menu.findViewById(R.id.shenzhen);
         this.guangzhou = (TextView) menu.findViewById(R.id.guangzhou);

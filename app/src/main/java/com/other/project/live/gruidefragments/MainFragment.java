@@ -1,6 +1,7 @@
 package com.other.project.live.gruidefragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -13,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.other.project.live.Location;
 import com.other.project.live.MainActivity;
 import com.other.project.live.R;
+import com.other.project.live.activities.PrivateActivity;
 import com.other.project.live.adapters.MainRecyclerViewAdapter;
 import com.other.project.live.adapters.MainViewPagerAdapter;
 import com.other.project.live.base.BaseApplication;
@@ -74,6 +77,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private RecyclerView mRecyclerView;
     private MainRecyclerViewAdapter mRecyclerViewAdapter;
     private CustomLinearManager linearLayoutManager;
+    private ScrollView mScollView;
 
     @Override
     public void onAttach(Context context) {
@@ -136,7 +140,16 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         mRecyclerViewAdapter = new MainRecyclerViewAdapter(null, getActivity());
 
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
+
+        mScollView = ((ScrollView) view.findViewById(R.id.main_scollview));
         return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     @Override
@@ -366,6 +379,14 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
             case R.id.error_img:
                 mRelativeLayout.setVisibility(View.GONE);
+                break;
+
+            case R.id.sirendingzhi:
+
+                Intent intent = new Intent(getActivity(), PrivateActivity.class);
+
+                startActivity(intent);
+
                 break;
         }
 

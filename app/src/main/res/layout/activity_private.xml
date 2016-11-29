@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.other.project.live.activities.PrivateActivity">
+
+    <LinearLayout
+        android:id="@+id/siren_top_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_group_height"
+        android:background="@color/top_background_white"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+            android:id="@+id/siren_back"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/top_img_size"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableLeft="@mipmap/head_back"
+            android:text="返回"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/top_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="私人订制"
+            android:textSize="@dimen/top_text_size" />
+
+        <ImageView
+            android:id="@+id/siren_share"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/top_img_size"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@mipmap/fenxiang" />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/cookery_book_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/siren_top_ll">
+
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="1dp"
+            android:background="#000">
+
+        </View>
+
+        <TextView
+            android:id="@+id/page_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="1/7" />
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="1dp"
+            android:background="#000">
+
+        </View>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/left_tv"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/chun_white"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="10dp"
+        android:text="RMB 5288"
+        android:textColor="@color/chun_white"
+        android:textSize="20sp" />
+
+</RelativeLayout>

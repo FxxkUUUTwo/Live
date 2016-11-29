@@ -86,6 +86,7 @@ public class ClassifyFragment extends BaseFragment implements View.OnClickListen
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         Log.e(TAG, "onError: "+e.getMessage()+"/"+e.getCause() );
+                        mRefresh.setRefreshing(false);
                     }
 
                     @Override

@@ -14,4 +14,7 @@ public class BaseUrl {
     public static final String PHONE_CHANGE = "http://www.idachu.cn/api/welcome/common?timestamp=";
     public static final String PHONE_CHANGE2 = "&nonstr=7a4d50b6f6341d5fbddc47f65271b113&devicetoken=34c48d87bc6b03d6939190f1f77f90eb&ll=MTIwLjM3MTEwMSwzNi4wODQyOTM%3D%0A&sign=";
 
+
+    public static final String PRIVATE_PATH="http://www.idachu.cn/api/party/info/1009?timestamp=";
+    public static final String PRIVATE_PATH2="&nonstr=b73b44e7ec98c99102825137fa5bbe50&devicetoken=34c48d87bc6b03d6939190f1f77f90eb&ll=MTIwLjM3MTEwMSwzNi4wODQyOTM%3D%0A&sign=";
 }
