@@ -793,7 +793,7 @@ public class MainModel  {
                 /**
                  * text : 推荐有当面交易需求的用户使用
                  * price : 0
-                 * color : #cccccc
+                 * color : #ccccccd
                  */
 
                 private String text;
