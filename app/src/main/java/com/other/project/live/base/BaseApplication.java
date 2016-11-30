@@ -9,6 +9,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.IOException;
 
+import cn.sharesdk.framework.ShareSDK;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -22,6 +23,8 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ShareSDK.initSDK(this);
         context = this;
         // 初始化OkHttpUtil
 
