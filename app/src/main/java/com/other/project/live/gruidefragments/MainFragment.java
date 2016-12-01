@@ -3,6 +3,8 @@ package com.other.project.live.gruidefragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,9 +23,11 @@ import com.google.gson.Gson;
 import com.other.project.live.Location;
 import com.other.project.live.MainActivity;
 import com.other.project.live.R;
+import com.other.project.live.activities.DanPinHotActivity;
 import com.other.project.live.activities.PrivateActivity;
+import com.other.project.live.activities.YongCanActivity;
 import com.other.project.live.adapters.MainRecyclerViewAdapter;
-import com.other.project.live.adapters.MainViewPagerAdapter;
+import com.other.project.live.adapters.MainViewPagerAdapter2;
 import com.other.project.live.base.BaseApplication;
 import com.other.project.live.base.BaseFragment;
 import com.other.project.live.constants.HttpParams;
@@ -58,9 +62,10 @@ import okhttp3.Call;
 /**
  * Created by wanghaixin on 16/11/26.
  */
-public class MainFragment extends BaseFragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class MainFragment extends BaseFragment implements View.OnClickListener, ViewPager.OnPageChangeListener, MainRecyclerViewAdapter.backWebView, Handler.Callback {
 
     public static final String TAG = MainFragment.class.getSimpleName();
+    private static final int START_SCOLL = 100;
     private TopGroup mTopGroup;
     private TextView mPosition;
 
@@ -78,6 +83,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     private MainRecyclerViewAdapter mRecyclerViewAdapter;
     private CustomLinearManager linearLayoutManager;
     private ScrollView mScollView;
+
+    private Handler handler = new Handler(this);
+    private String danPin;
+    private ArrayList<TopModel> topData;
 
     @Override
     public void onAttach(Context context) {
@@ -137,11 +146,13 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         linearLayoutManager = new CustomLinearManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        mRecyclerViewAdapter = new MainRecyclerViewAdapter(null, getActivity());
+        mRecyclerViewAdapter = new MainRecyclerViewAdapter(null, getActivity(), this);
 
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         mScollView = ((ScrollView) view.findViewById(R.id.main_scollview));
+
+
         return view;
     }
 
@@ -156,11 +167,19 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        Message message = handler.obtainMessage();
+        message.what = START_SCOLL;
+
+        handler.sendMessage(message);
+
         mErrorImage.setOnClickListener(this);
         mPosition.setOnClickListener(this);
         mProvision.setOnClickListener(this);
 
         mViewPager.addOnPageChangeListener(this);
+
+        //mViewPager.addOnPageChangeListener(this);
+
 
         mYongCan.setOnClickListener(this);
         mDingZhi.setOnClickListener(this);
@@ -242,7 +261,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                             Picasso.with(getActivity()).load(mainModel.getData().getButtons().get(1).getIcon()).into(mDingZhi);
                             //手动解析
                             //JsonObject jsonObject = new JsonObject(json);
-                            List<TopModel> topData = new ArrayList<TopModel>();
+                            topData = new ArrayList<TopModel>();
                             List<ImageView> Images = new ArrayList<>();
                             getTop(json, topData, Images);
 
@@ -266,6 +285,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                                     if (i == 3) {
 
                                         String uri1 = hot.getJSONObject(i).getString("uri");
+
+                                        danPin = uri1;
                                         hotModel.setUri(uri1);
 
                                     } else {
@@ -293,7 +314,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         }
     }
 
-    private MainViewPagerAdapter mViewPagerAdapter;
+    private MainViewPagerAdapter2 mViewPagerAdapter;
 
     private void getTop(String json, List<TopModel> topData, List<ImageView> images) {
         try {
@@ -346,7 +367,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
             Log.e(TAG, "onResponse: " + e.getMessage());
             e.printStackTrace();
         }
-        mViewPagerAdapter = new MainViewPagerAdapter(images);
+        mViewPagerAdapter = new MainViewPagerAdapter2(images);
 
         mViewPager.setAdapter(mViewPagerAdapter);
 
@@ -388,6 +409,15 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
                 startActivity(intent);
 
                 break;
+
+
+            case R.id.jiachangyongcan:
+
+                Intent intent1 = new Intent(getActivity(), YongCanActivity.class);
+
+
+                startActivity(intent1);
+                break;
         }
 
 
@@ -409,32 +439,92 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         requestPhoneChange();
     }
 
+    private boolean flag = false;
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+        Log.e(TAG + "onPageScrolled", "onPageScrolled: " + position);
+       /* if (topData.size() - 1 == currposition && positionOffsetPixels == 0 && currState == ViewPager.SCROLL_STATE_DRAGGING) {
+            Log.e(TAG, "onPageScrolled: " + "进啦了");
+
+
+            mViewPager.setCurrentItem(0);
+
+        }*/
     }
 
     private int currposition = 0;
 
+
     @Override
     public void onPageSelected(int position) {
-
 
         mPointLinearLayout.getChildAt(currposition).setBackgroundResource(R.mipmap.yuandian);
 
         mPointLinearLayout.getChildAt(position).setBackgroundResource(R.mipmap.yuandian_click);
 
         currposition = position;
+
     }
+
+    private int currState;
 
     @Override
     public void onPageScrollStateChanged(int state) {
+        currState = state;
 
+    }
+
+    @Override
+    public void sendWeb(int pos) {
+
+        Log.e(TAG, "sendWeb: " + pos);
+
+        Intent intent = new Intent(getActivity(), DanPinHotActivity.class);
+
+        intent.putExtra("path", danPin);
+
+        startActivity(intent);
+
+
+    }
+
+    int i = currposition;
+
+    @Override
+    public boolean handleMessage(Message message) {
+
+        switch (message.what) {
+            case START_SCOLL:
+
+                if (i != 2) {
+                    mViewPager.setCurrentItem(i % 3);
+                } else {
+
+                    mViewPager.setCurrentItem(2);
+                }
+                i++;
+                Log.e(TAG, "run: " + i);
+                break;
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                Message message = handler.obtainMessage();
+                message.what = START_SCOLL;
+
+                handler.sendMessage(message);
+            }
+        }, 3000);
+        return false;
     }
 
 
     public interface backToggle {
         void toggle();
     }
+
 
 }

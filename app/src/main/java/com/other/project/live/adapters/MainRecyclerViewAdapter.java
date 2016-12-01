@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.other.project.live.R;
+import com.other.project.live.gruidefragments.MainFragment;
 import com.other.project.live.model.HotModel;
 import com.squareup.picasso.Picasso;
 
@@ -19,7 +20,7 @@ import java.util.List;
 /**
  * Created by wanghaixin on 16/11/29.
  */
-public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder> {
+public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder> implements View.OnClickListener {
 
     private static final String TAG = MainRecyclerViewAdapter.class.getSimpleName();
     private List<HotModel> data;
@@ -28,7 +29,10 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
 
     private Context context;
 
-    public MainRecyclerViewAdapter(List<HotModel> data, Context context) {
+
+    private backWebView webViewCallBack;
+
+    public MainRecyclerViewAdapter(List<HotModel> data, Context context, MainFragment fragment) {
 
         if (data != null) {
             this.data = data;
@@ -37,6 +41,9 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         }
         inflater = LayoutInflater.from(context);
         this.context = context;
+
+        webViewCallBack = (backWebView) fragment;
+
     }
 
     @Override
@@ -62,6 +69,12 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
         }
         holder.content_img.setScaleType(ImageView.ScaleType.FIT_XY);
         Picasso.with(context).load(data.get(position).getImg()).into(holder.content_img);
+
+        if (position == data.size() - 1) {
+            holder.itemView.setTag(position);
+            holder.itemView.setOnClickListener(this);
+        }
+
     }
 
 
@@ -70,6 +83,18 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
 
 
         return data != null ? data.size() : 0;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+
+        int tag = (int) view.getTag();
+        Log.e(TAG, "onClick: " + tag);
+
+        webViewCallBack.sendWeb(tag);
+
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -92,6 +117,12 @@ public class MainRecyclerViewAdapter extends RecyclerView.Adapter<MainRecyclerVi
             this.data = data;
             notifyDataSetChanged();
         }
+
+    }
+
+
+    public interface backWebView {
+        void sendWeb(int pos);
 
     }
 }

@@ -3,19 +3,19 @@ package com.other.project.live.adapters;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.GridView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wanghaixin on 16/11/29.
+ * Created by wanghaixin on 16/11/30.
  */
-public class MainViewPagerAdapter extends PagerAdapter {
+public class MainViewPagerAdapter3 extends PagerAdapter {
 
-    private List<LinearLayout> data;
+    private List<GridView> data;
 
-    public MainViewPagerAdapter(List<LinearLayout> data) {
+    public MainViewPagerAdapter3(List<GridView> data) {
         if (data != null) {
             this.data = data;
         } else {
@@ -25,7 +25,7 @@ public class MainViewPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public LinearLayout instantiateItem(ViewGroup container, int position) {
+    public GridView instantiateItem(ViewGroup container, int position) {
 
         container.addView(data.get(position));
         return data.get(position);

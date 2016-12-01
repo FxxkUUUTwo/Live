@@ -3,8 +3,6 @@ package com.other.project.live.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.View;
@@ -70,70 +68,6 @@ public class AutoScollTextView extends TextView implements View.OnClickListener 
         y = getTextSize() + getPaddingTop()+8;
     }
 
-    @Override
-    public Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        SavedState ss = new SavedState(superState);
-
-        ss.step = step;
-        ss.isStarting = isStarting;
-
-        return ss;
-
-    }
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-        if (!(state instanceof SavedState)) {
-            super.onRestoreInstanceState(state);
-            return;
-        }
-        SavedState ss = (SavedState) state;
-        super.onRestoreInstanceState(ss.getSuperState());
-
-        step = ss.step;
-        isStarting = ss.isStarting;
-
-    }
-
-    public static class SavedState extends View.BaseSavedState {
-        public boolean isStarting = false;
-        public float step = 0.0f;
-
-        SavedState(Parcelable superState) {
-            super(superState);
-        }
-
-        @Override
-        public void writeToParcel(Parcel out, int flags) {
-            super.writeToParcel(out, flags);
-            out.writeBooleanArray(new boolean[]{isStarting});
-            out.writeFloat(step);
-        }
-
-
-        public static final Parcelable.Creator<SavedState> CREATOR
-                = new Parcelable.Creator<SavedState>() {
-
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-
-            @Override
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-        };
-
-        private SavedState(Parcel in) {
-            super(in);
-            boolean[] b = null;
-            in.readBooleanArray(b);
-            if (b != null && b.length > 0)
-                isStarting = b[0];
-            step = in.readFloat();
-        }
-    }
 
     /**
      * 开始滚动
