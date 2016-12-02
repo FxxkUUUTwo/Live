@@ -6,7 +6,6 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,11 +18,13 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.other.project.live.base.BaseActivity;
 import com.other.project.live.custom.MyEventBus;
 import com.other.project.live.gruidefragments.AnchorHeadLineFragment;
 import com.other.project.live.gruidefragments.ClassifyFragment;
 import com.other.project.live.gruidefragments.MainFragment;
 import com.other.project.live.gruidefragments.MyselfFragment;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,7 +34,7 @@ import java.util.List;
 /*
 *
 * My Live*/
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, SlidingMenu.OnOpenedListener, SlidingMenu.OnClosedListener, View.OnClickListener, MainFragment.backToggle {
+public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener, SlidingMenu.OnOpenedListener, SlidingMenu.OnClosedListener, View.OnClickListener, MainFragment.backToggle {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private Fragment showFragment;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
     private List<String> citys = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
 
     }
+
 
     private void initSlidingMenu() {
         mSlidingMenu = new SlidingMenu(this);
@@ -170,6 +173,13 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         // 注册监听
         client.registerLocationListener(locationListener);
         client.start();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

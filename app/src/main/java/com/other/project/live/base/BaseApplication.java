@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.other.project.live.constants.HttpParams;
 import com.other.project.live.utils.NetWorkUtil;
+import com.umeng.analytics.MobclickAgent;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.IOException;
@@ -20,10 +21,17 @@ import okhttp3.Response;
 public class BaseApplication extends Application {
     private static Context context;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
 
+        MobclickAgent.UMAnalyticsConfig umAnalyticsConfig = new MobclickAgent.UMAnalyticsConfig(this,
+                "5840307d99f0c7711c0016d6",
+                "student",
+                MobclickAgent.EScenarioType.E_UM_NORMAL,
+                true);
+        MobclickAgent.startWithConfigure(umAnalyticsConfig);
         ShareSDK.initSDK(this);
         context = this;
         // 初始化OkHttpUtil
@@ -81,5 +89,6 @@ public class BaseApplication extends Application {
     public static String getCacheControl() {
         return NetWorkUtil.isConnected(context) ? "max-age=60" : "only-if-cache,max-stale=" + 2 * 60 * 60;
     }
+
 
 }

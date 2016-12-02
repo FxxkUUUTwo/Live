@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -297,6 +298,12 @@ public class PrivateActivity extends AppCompatActivity implements ViewPager.OnPa
     }
 
     private LinearLayout buildImageView(String url, int i) {
+
+        WindowManager manager = (WindowManager) getSystemService(WINDOW_SERVICE);
+
+        Display defaultDisplay = manager.getDefaultDisplay();
+        int width = defaultDisplay.getWidth();
+
         LinearLayout ll = new LinearLayout(PrivateActivity.this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -306,7 +313,8 @@ public class PrivateActivity extends AppCompatActivity implements ViewPager.OnPa
         ll.setGravity(Gravity.CENTER);
         ImageView iv = new ImageView(this);
         iv.setScaleType(ImageView.ScaleType.FIT_XY);
-        LinearLayout.LayoutParams iv_params = new LinearLayout.LayoutParams(450, ViewGroup.LayoutParams.MATCH_PARENT);
+        Log.e(TAG, "buildImageView: " + (int) (width * (4.0f / 5.0f)));
+        LinearLayout.LayoutParams iv_params = new LinearLayout.LayoutParams((int) (width * (5.0f / 6.0f)), ViewGroup.LayoutParams.MATCH_PARENT);
         params.gravity = Gravity.CENTER_VERTICAL;
         Log.i("width--height", "width = " + params.width + "---" + "height = " + params.height);
         iv.setLayoutParams(iv_params);

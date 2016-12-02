@@ -10,7 +10,7 @@ android {
         }
     }
     defaultConfig {
-        manifestPlaceholders.put("key", "umET8vZWF5HrMEQGqzLja5a6wAqstBnH");
+        manifestPlaceholders.put("key", "diArENtoZT5IxVuE8QZFquR4WVvdxj2D");
         applicationId "com.other.project.live"
         minSdkVersion 15
         targetSdkVersion 25
@@ -26,13 +26,22 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':slidingmenu')
     compile 'com.android.support:design:24.1.1'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile project(':slidingmenu')
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.zhy:okhttputils:2.6.2'
+    compile 'jp.wasabeef:picasso-transformations:2.1.0'
+    dependencies {
+        compile 'com.umeng.analytics:analytics:latest.integration'
+    }
 }

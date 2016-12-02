@@ -3,16 +3,20 @@ package com.other.project.live.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.other.project.live.R;
 
-public class InfoAcitivity extends AppCompatActivity {
+public class InfoAcitivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mUserName;
     private TextView mUserTime;
     private TextView mCaiNumber;
     private TextView mRemarks;
+    private Button mSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public class InfoAcitivity extends AppCompatActivity {
         mCaiNumber = (TextView) findViewById(R.id.cai_number);
         mRemarks = (TextView) findViewById(R.id.remarks);
 
+        mSubmit = (Button) findViewById(R.id.submit);
+        mSubmit.setOnClickListener(this);
 
         mUserName.setText(info);
         mUserTime.setText(time);
@@ -44,5 +50,11 @@ public class InfoAcitivity extends AppCompatActivity {
         mRemarks.setText(remarks);
 
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(InfoAcitivity.this, "提交成功", Toast.LENGTH_SHORT).show();
+        this.finish();
     }
 }
