@@ -10,6 +10,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.IOException;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.ShareSDK;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -26,12 +27,19 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        //初始化极光推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+
+        //厨师话友盟统计
         MobclickAgent.UMAnalyticsConfig umAnalyticsConfig = new MobclickAgent.UMAnalyticsConfig(this,
                 "5840307d99f0c7711c0016d6",
                 "student",
                 MobclickAgent.EScenarioType.E_UM_NORMAL,
                 true);
         MobclickAgent.startWithConfigure(umAnalyticsConfig);
+
+        //初始化shareSDK
         ShareSDK.initSDK(this);
         context = this;
         // 初始化OkHttpUtil

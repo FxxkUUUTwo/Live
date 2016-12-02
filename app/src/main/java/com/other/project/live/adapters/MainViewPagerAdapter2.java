@@ -24,23 +24,35 @@ public class MainViewPagerAdapter2 extends PagerAdapter {
 
     }
 
+
     @Override
     public ImageView instantiateItem(ViewGroup container, int position) {
 
-        container.addView(data.get(position));
-        return data.get(position);
+        position %= data.size();
+        if (position < 0) {
+            position = data.size() + position;
+        }
+        ImageView imageView = data.get(position);
+        if (imageView.getParent() != null) {
+            ViewGroup viewParent = (ViewGroup) imageView.getParent();
+            viewParent.removeView(imageView);
+        }
+        container.addView(imageView);
+        return imageView;
     }
+
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
 
-        container.removeView(data.get(position));
+
+        //container.removeView(data.get(newPosition));
 
     }
 
     @Override
     public int getCount() {
-        return data != null ? data.size() : 0;
+        return data != null ? Integer.MAX_VALUE : 0;
     }
 
     @Override

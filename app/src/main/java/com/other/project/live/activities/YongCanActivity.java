@@ -148,6 +148,9 @@ public class YongCanActivity extends AppCompatActivity implements View.OnClickLi
 
         if ("".equals(mEditText.getText().toString())) {
             buffer.delete(0, buffer.length());
+        } else {
+            buffer.delete(0, buffer.length());
+            buffer.append(mEditText.getText().toString() + " ");
         }
         if (id >= 0 && id <= mNames.length - 1) {
             buffer.append(mNames[id] + "  ");

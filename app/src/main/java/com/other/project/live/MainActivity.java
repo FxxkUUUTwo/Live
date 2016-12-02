@@ -27,9 +27,15 @@ import com.other.project.live.gruidefragments.MyselfFragment;
 import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.data.JPushLocalNotification;
 
 /*
 *
@@ -79,6 +85,36 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
 
         initSlidingMenu();
 
+        sendNotification();
+
+
+    }
+
+    private void sendNotification() {
+      /*  JPushLocalNotification ln = new JPushLocalNotification(); ln.setBuilderId(0); 
+        ln.setContent("hhh"); 
+        ln.setTitle("ln"); ln.setNotificationId(11111111); 
+        ln.setBroadcastTime(0);//设置出来的时间  
+        Map<String, Object> map = new HashMap<String, Object>();
+         map.put("name", "jpush"); 
+        map.put("test", "111"); 
+        JSONObject json = new JSONObject(map); ln.setExtras(json.toString()); 
+        JPushInterface.addLocalNotification(getApplicationContext(), ln);
+*/
+
+        JPushLocalNotification ln = new JPushLocalNotification();
+
+        ln.setBuilderId(0);
+        ln.setContent("爱大厨欢迎你");
+        ln.setTitle("爱大厨");
+        ln.setNotificationId(111);
+        ln.setBroadcastTime(3000);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", "爱大厨");
+        map.put("test", "爱大厨");
+        JSONObject jsonObject = new JSONObject(map);
+        ln.setExtras(jsonObject.toString());
+        JPushInterface.addLocalNotification(getApplicationContext(), ln);
 
     }
 

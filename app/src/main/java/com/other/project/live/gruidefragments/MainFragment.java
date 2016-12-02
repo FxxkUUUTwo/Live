@@ -115,6 +115,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
         }
 
+        handler.removeCallbacksAndMessages(null);
+
 
     }
 
@@ -167,10 +169,6 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Message message = handler.obtainMessage();
-        message.what = START_SCOLL;
-
-        handler.sendMessage(message);
 
         mErrorImage.setOnClickListener(this);
         mPosition.setOnClickListener(this);
@@ -178,6 +176,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
         mViewPager.addOnPageChangeListener(this);
 
+
+        //mViewPager.setOnTouchListener(this);
         //mViewPager.addOnPageChangeListener(this);
 
 
@@ -315,8 +315,10 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     private MainViewPagerAdapter2 mViewPagerAdapter;
+    private List<ImageView> l;
 
     private void getTop(String json, List<TopModel> topData, List<ImageView> images) {
+        l = images;
         try {
 
             mPointLinearLayout.removeAllViews();
@@ -362,6 +364,8 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
                 topData.add(topModel1);
             }
+
+            mPointLinearLayout.getChildAt(currposition % 3).setBackgroundResource(R.mipmap.yuandian_click);
         } catch (JSONException e) {
             Log.e(TAG, "onResponse: " + e.getCause());
             Log.e(TAG, "onResponse: " + e.getMessage());
@@ -370,6 +374,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         mViewPagerAdapter = new MainViewPagerAdapter2(images);
 
         mViewPager.setAdapter(mViewPagerAdapter);
+        mViewPager.setCurrentItem(currposition);
 
     }
 
@@ -381,7 +386,7 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
         view.setBackgroundResource(R.mipmap.yuandian);
         mPointLinearLayout.addView(view);
-        mPointLinearLayout.getChildAt(0).setBackgroundResource(R.mipmap.yuandian_click);
+
 
     }
 
@@ -443,26 +448,28 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        Log.e(TAG, "onPageScrolled: " + positionOffset + ":::::" + positionOffsetPixels);
+       /* if (currState == ViewPager.SCROLL_STATE_SETTLING && positionOffset == 0) {
+            Log.e(TAG, "onPageSelected: " + currState + "进啦");
+            Message message = handler.obtainMessage();
+            message.what = START_SCOLL;
+            handler.sendMessage(message);
 
-        Log.e(TAG + "onPageScrolled", "onPageScrolled: " + position);
-       /* if (topData.size() - 1 == currposition && positionOffsetPixels == 0 && currState == ViewPager.SCROLL_STATE_DRAGGING) {
-            Log.e(TAG, "onPageScrolled: " + "进啦了");
+        }
+*/
 
-
-            mViewPager.setCurrentItem(0);
-
-        }*/
     }
 
-    private int currposition = 0;
+    private int currposition = 4999998;
 
 
     @Override
     public void onPageSelected(int position) {
 
-        mPointLinearLayout.getChildAt(currposition).setBackgroundResource(R.mipmap.yuandian);
 
-        mPointLinearLayout.getChildAt(position).setBackgroundResource(R.mipmap.yuandian_click);
+        mPointLinearLayout.getChildAt(currposition % 3).setBackgroundResource(R.mipmap.yuandian);
+
+        mPointLinearLayout.getChildAt(position % 3).setBackgroundResource(R.mipmap.yuandian_click);
 
         currposition = position;
 
@@ -474,6 +481,23 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
     public void onPageScrollStateChanged(int state) {
         currState = state;
 
+        Log.e(TAG, "onPageScrollStateChanged: " + state);
+       /* switch (state) {
+            case ViewPager.SCROLL_STATE_DRAGGING://手指滑动状态
+                Log.e(TAG, "onPageScrollStateChanged: " + "一处了");
+                handler.removeMessages(START_SCOLL);
+                break;
+            case ViewPager.SCROLL_STATE_IDLE:
+//停止状态
+
+                break;
+            case ViewPager.SCROLL_STATE_SETTLING://自动滑动状态
+
+                break;
+
+            default:
+                break;
+        }*/
     }
 
     @Override
@@ -498,32 +522,53 @@ public class MainFragment extends BaseFragment implements View.OnClickListener, 
         switch (message.what) {
             case START_SCOLL:
 
-                if (i != 2) {
-                    mViewPager.setCurrentItem(i % 3);
-                } else {
 
-                    mViewPager.setCurrentItem(2);
-                }
+                // mViewPager.removeView(l.get(i));
+                mViewPager.setCurrentItem(i);
+
                 i++;
-                Log.e(TAG, "run: " + i);
+
                 break;
         }
+
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
 
                 Message message = handler.obtainMessage();
                 message.what = START_SCOLL;
-
                 handler.sendMessage(message);
             }
         }, 3000);
         return false;
     }
 
+    private boolean isLoop = true;
+
+  /*  @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                Toast.makeText(getActivity(), "Down", Toast.LENGTH_SHORT).show();
+                isLoop = false;
+                break;
+            case MotionEvent.ACTION_UP:
+                Toast.makeText(getActivity(), "Up", Toast.LENGTH_SHORT).show();
+                isLoop = true;
+                break;
+        }
+
+        handleMessage(handler.obtainMessage());
+        return false;
+    }*/
+
 
     public interface backToggle {
         void toggle();
+
     }
 
 
