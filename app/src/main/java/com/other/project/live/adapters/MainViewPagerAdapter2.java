@@ -29,9 +29,7 @@ public class MainViewPagerAdapter2 extends PagerAdapter {
     public ImageView instantiateItem(ViewGroup container, int position) {
 
         position %= data.size();
-        if (position < 0) {
-            position = data.size() + position;
-        }
+
         ImageView imageView = data.get(position);
         if (imageView.getParent() != null) {
             ViewGroup viewParent = (ViewGroup) imageView.getParent();

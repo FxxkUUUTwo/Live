@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.other.project.live.R;
 
@@ -17,6 +16,7 @@ public class InfoAcitivity extends AppCompatActivity implements View.OnClickList
     private TextView mCaiNumber;
     private TextView mRemarks;
     private Button mSubmit;
+    private String number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class InfoAcitivity extends AppCompatActivity implements View.OnClickList
 
         String info = intent.getStringExtra("info");
         String time = intent.getStringExtra("time");
-        String number = intent.getStringExtra("number");
+        number = intent.getStringExtra("number");
         String remarks = intent.getStringExtra("remarks");
 
 
@@ -54,7 +54,9 @@ public class InfoAcitivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(InfoAcitivity.this, "提交成功", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, PayActivity.class);
+        intent.putExtra("pay", number);
+        startActivity(intent);
         this.finish();
     }
 }
