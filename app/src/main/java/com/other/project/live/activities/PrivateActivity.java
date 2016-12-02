@@ -112,8 +112,8 @@ public class PrivateActivity extends AppCompatActivity implements ViewPager.OnPa
 
                             privateDingZhi = gson.fromJson(json, PrivateDingZhi.class);
 
-                            Log.e(TAG + "---------", "onResponse: " + privateDingZhi.getData().getItems().get(0).getList_img());
-                            Log.e(TAG + "---------", "onResponse: " + privateDingZhi.getData().getItems().size());
+                            //   Log.e(TAG + "---------", "onResponse: " + privateDingZhi.getData().getItems().get(0).getList_img());
+                            // Log.e(TAG + "---------", "onResponse: " + privateDingZhi.getData().getItems().size());
                             left_tv.startAnimation(startAnimation());
                             left_tv.setText(privateDingZhi.getData().getItems().get(0).getName());
 
